@@ -1,0 +1,50 @@
+<!-- image_filter/templates/image_filter/upload.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Upload Image</title>
+  </head>
+  <body>
+    <h1>Image Upload and Processing</h1>
+
+    <!-- Image Upload Form -->
+    <!--<form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <input type="file" name="image" required />
+      <button type="submit">Upload Image</button>
+    </form> -->
+
+    <form
+      method="POST"
+      action="{% url 'upload_image' %}"
+      enctype="multipart/form-data"
+    >
+      {% csrf_token %}
+      <input type="file" name="image" />
+      <button type="submit">Upload</button>
+    </form>
+
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <label for="id_image">Upload an image:</label>
+      {{ form.image }}
+      <br />
+      <label for="id_filter_type">Choose a filter:</label>
+      {{ form.filter_type }}
+      <br />
+      <button type="submit">Apply Filter & Download</button>
+    </form>
+
+    <!-- Display uploaded and processed images -->
+    {% if uploaded_image_url %}
+    <h2>Uploaded Image:</h2>
+    <img src="{{ uploaded_image_url }}" alt="Uploaded Image" />
+    {% endif %} {% if processed_image_url %}
+    <h2>Processed Image (Grayscale):</h2>
+    <img src="{{ processed_image_url }}" alt="Processed Image" />
+    {% endif %}
+  </body>
+</html>
